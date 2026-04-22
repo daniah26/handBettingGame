@@ -1,0 +1,245 @@
+// color palette
+$dark-blue: #2b2d42;
+$dark-blue-light: #3d3f5a;
+$red: #d90429;
+$red-light: #ef233c;
+$light: #edf2f4;
+$gray: #8d99ae;
+
+.container {
+  min-height: 100vh;
+  max-width: 100%;
+  background: $dark-blue;
+}
+
+// cursor-following glow effect
+.glow-effect {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.3s ease;
+}
+
+// main content
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.top {
+  text-align: center;
+  animation: fade-in-up 0.8s ease-out;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: $red;
+  
+  @media (max-width: 480px) {
+    font-size: 2.2rem;
+  }
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: $gray;
+  max-width: 400px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
+.play-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $light;
+  background: $red;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba($red, 0.5);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.button-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.leaderboard {
+  background: rgba($light, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba($light, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  animation: fade-in-up 0.8s ease-out 0.2s backwards;
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $light;
+    margin: 0;
+  }
+}
+
+.trophy-icon {
+  width: 28px;
+  height: 28px;
+  color: #ffd700;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba($dark-blue-light, 0.5);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba($dark-blue-light, 0.8);
+    transform: translateX(8px);
+  }
+  
+  &.top-three {
+    border-left: 3px solid transparent;
+    
+    &:nth-child(1) { border-left-color: #ffd700; }
+    &:nth-child(2) { border-left-color: #c0c0c0; }
+    &:nth-child(3) { border-left-color: #cd7f32; }
+  }
+}
+
+.rank {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 50%;
+  background: rgba($light, 0.1);
+  color: $gray;
+  
+  &.gold {
+    background: linear-gradient(135deg, #ffd700, #ffb300);
+    color: $dark-blue;
+  }
+  
+  &.silver {
+    background: linear-gradient(135deg, #e0e0e0, #b0b0b0);
+    color: $dark-blue;
+  }
+  
+  &.bronze {
+    background: linear-gradient(135deg, #cd7f32, #a0522d);
+    color: $light;
+  }
+}
+
+.player-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $light;
+  background: $red;
+  border-radius: 50%;
+}
+
+.player-name {
+  font-weight: 500;
+  color: $light;
+  text-transform: capitalize;
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 6px 14px;
+  background: rgba($red, 0.15);
+  border-radius: 20px;
+}
+
+.score-value {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: $red-light;
+}
+
+.score-label {
+  font-size: 0.75rem;
+  color: $gray;
+  text-transform: uppercase;
+}

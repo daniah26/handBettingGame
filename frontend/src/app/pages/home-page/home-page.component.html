@@ -1,0 +1,55 @@
+<div class="container">
+  <!-- Cursor-following glow effect -->
+  <div class="glow-effect" [ngStyle]="getGlowStyle()"></div>
+
+  <!-- Main content -->
+  <div class="content">
+    <!-- Hero Section -->
+    <div class="top">
+      <h1>
+        Hand Betting Game
+      </h1>
+      <p class="subtitle">
+        Start a new session, predict the next hand, and try to get the highest score.
+      </p>
+      
+      <button class="play-button" (click)="startNewGame()">
+        <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        <span>New Game</span>
+      </button>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <div class="leaderboard">
+      <div class="leaderboard-header">
+        <h2>Top 5 High Scores</h2>
+      </div>
+      
+      <div class="leaderboard-list">
+        <div 
+          *ngFor="let entry of leaderboard" 
+          class="leaderboard-row"
+          [class.top-three]="entry.rank <= 3">
+          
+          <div class="rank" [ngClass]="getMedalClass(entry.rank)">
+            {{ getMedalIcon(entry.rank) }}
+          </div>
+          
+          <div class="player-info">
+            <div class="avatar">
+              {{ entry.player.charAt(0).toUpperCase() }}
+            </div>
+            <span class="player-name">{{ entry.player }}</span>
+          </div>
+          
+          <div class="score">
+            <span class="score-value">{{ entry.score }}</span>
+            <span class="score-label">pts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
