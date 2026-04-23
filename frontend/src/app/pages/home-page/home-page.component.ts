@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { GameApiService } from '../../services/game-api.service';
 
 
 interface LeaderboardEntry {
@@ -17,20 +18,17 @@ interface LeaderboardEntry {
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+  private router = inject(Router);
+  private gameApi = inject(GameApiService);
+
   mouseX = 0;
   mouseY = 0;
   
-  leaderboard: LeaderboardEntry[] = [
-    { rank: 1, player: 'dania', score: 8 },
-    { rank: 2, player: 'alex', score: 7 },
-    { rank: 3, player: 'jordan', score: 6 },
-    { rank: 4, player: 'casey', score: 5 },
-    { rank: 5, player: 'morgan', score: 4 }
-  ];
+  leaderboard: LeaderboardEntry[] = [];
 
-  ngOnInit(): void {}
-
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    this.loadLeaderboard();
+  }
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
@@ -62,7 +60,29 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  startNewGame(): void {
-    this.router.navigate(['/game']);
+startNewGame(): void {
+    this.gameApi.startGame().subscribe({
+      next: (game) => {
+        this.router.navigate(['/game', game._id]);
+      },
+      error: (err) => {
+        console.error('Failed to start game', err);
+      }
+    });
+  }
+
+  loadLeaderboard(): void {
+    this.gameApi.getLeaderboard().subscribe({
+      next: (data: any) => {
+        this.leaderboard = data.map((item: any, index: number) => ({
+          rank: index + 1,
+          player: item.playerName || `Player ${index + 1}`,
+          score: item.score
+        }));
+      },
+      error: (err) => {
+        console.error('Failed to load leaderboard', err);
+      }
+    });
   }
 }

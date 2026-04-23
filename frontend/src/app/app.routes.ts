@@ -5,5 +5,5 @@ import { GamePageComponent } from './pages/game-page/game-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomePageComponent},
-    { path: 'game', component: GamePageComponent }
+    { path: 'game/:id', component: GamePageComponent }
 ];

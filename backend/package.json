@@ -1,7 +1,7 @@
 {
   "name": "mahjong-bet-game-server",
   "version": "1.0.0",
-  "description": "Backend for Mahjong Betting Game using Node, Express, and MongoDB",
+  "description": "Backend for Mahjong Betting Game",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -18,12 +18,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.0",
-    "mongoose": "^8.7.1"
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "mongoose": "^8.23.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.14"
   }
 }
