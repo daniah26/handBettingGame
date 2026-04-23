@@ -2,19 +2,6 @@
   <!-- Cursor glow effect -->
   <div class="glow-effect" [ngStyle]="glowStyle"></div>
 
-  <!-- Floating particles -->
-  <div class="particles">
-    <div
-      *ngFor="let particle of particles"
-      class="particle"
-      [style.left.%]="particle.left"
-      [style.top.%]="particle.top"
-      [style.animation-delay.s]="particle.delay"
-      [style.width.px]="particle.size"
-      [style.height.px]="particle.size"
-    ></div>
-  </div>
-
   <!-- Main game content -->
   <div class="content" *ngIf="!isGameOver">
     <!-- Header -->
