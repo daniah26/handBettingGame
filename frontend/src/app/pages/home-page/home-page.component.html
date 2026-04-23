@@ -13,7 +13,7 @@
         Start a new session, predict the next hand, and try to get the highest score.
       </p>
       
-      <button class="play-button" (click)="startNewGame()">
+      <button class="play-button" (click)="openNameModal()">
         <svg class="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="5 3 19 12 5 21 5 3"/>
         </svg>
@@ -38,9 +38,6 @@
           </div>
           
           <div class="player-info">
-            <div class="avatar">
-              {{ entry.player.charAt(0).toUpperCase() }}
-            </div>
             <span class="player-name">{{ entry.player }}</span>
           </div>
           
@@ -49,6 +46,32 @@
             <span class="score-label">pts</span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+<!-- name pop-up modal -->
+  <div class="modal-overlay" *ngIf="showNameModal" (click)="closeNameModal()">
+    <div class="name-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Enter Your Name</h2>
+        <p>Start your session and compete for the top 5 high scores.</p>
+      </div>
+
+      <div class="modal-body">
+        <input
+          type="text"
+          class="name-input"
+          [(ngModel)]="playerName"
+          maxlength="30"
+          placeholder="Your name"
+          (keyup.enter)="confirmStartGame()"
+          #nameInput
+        />
+      </div>
+
+      <div class="modal-actions">
+        <button class="cancel-button" (click)="closeNameModal()">Cancel</button>
+        <button class="confirm-button" (click)="confirmStartGame()">Start Game</button>
       </div>
     </div>
   </div>
