@@ -35,6 +35,7 @@ const historySchema = new mongoose.Schema(
 
 const gameSchema = new mongoose.Schema(
   {
+    playerName: { type: String, required: true, trim: true, maxlength: 50 },
     score: { type: Number, default: 0 },
     roundsPlayed: { type: Number, default: 0 },
     drawPile: [tileSchema],

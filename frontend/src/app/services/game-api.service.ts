@@ -9,9 +9,11 @@ export class GameApiService {
   private http = inject(HttpClient);
   private baseUrl = 'http://localhost:5000/api';
 
-  startGame(): Observable<any> {
-    return this.http.post(`${this.baseUrl}/game/start`, {});
+  startGame(playerName: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/game/start`, {playerName});
   }
+
+  
 
   makeBet(gameId: string, betChoice: 'Higher' | 'Lower'): Observable<any> {
     return this.http.post(`${this.baseUrl}/game/bet`, {

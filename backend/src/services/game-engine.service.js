@@ -5,7 +5,7 @@ import { updateTileValues, checkTileValueLimits } from './tile-value.service.js'
 
 const HAND_SIZE = 3;
 
-export const startNewGame = async () => {
+export const startNewGame = async (playerName) => {
   const deck = shuffleDeck(createFreshDeck());
 
   const firstDraw = drawTiles(deck, HAND_SIZE);
@@ -22,6 +22,7 @@ export const startNewGame = async () => {
   const previousHand = calculateHandValue(firstDraw.drawn, defaultTileValues);
 
   const game = await Game.create({
+    playerName,
     score: 0,
     roundsPlayed: 0,
     drawPile: firstDraw.remaining,
@@ -126,5 +127,5 @@ export const getLeaderboard = async () => {
   return Game.find({ gameOver: true })
     .sort({ score: -1, createdAt: -1 })
     .limit(5)
-    .select('score createdAt');
+    .select('playerName score createdAt');
 };

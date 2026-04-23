@@ -3,7 +3,13 @@ import Game from '../models/Game.js';
 
 export const startGame = async (req, res) => {
   try {
-    const game = await startNewGame();
+    const { playerName } = req.body;
+
+    if (!playerName || !playerName.trim()) {
+      return res.status(400).json({ message: 'Player name is required' });
+    }
+
+    const game = await startNewGame(playerName.trim());
     res.status(201).json(game);
   } catch (error) {
     res.status(500).json({ message: error.message });

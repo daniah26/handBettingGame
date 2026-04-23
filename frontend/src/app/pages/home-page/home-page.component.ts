@@ -61,15 +61,21 @@ export class HomePageComponent implements OnInit {
   }
 
 startNewGame(): void {
-    this.gameApi.startGame().subscribe({
-      next: (game) => {
-        this.router.navigate(['/game', game._id]);
-      },
-      error: (err) => {
-        console.error('Failed to start game', err);
-      }
-    });
+  const playerName = prompt('Enter your name:')?.trim();
+
+  if (!playerName) {
+    return;
   }
+
+  this.gameApi.startGame(playerName).subscribe({
+    next: (game) => {
+      this.router.navigate(['/game', game._id]);
+    },
+    error: (err) => {
+      console.error('Failed to start game', err);
+    }
+  });
+}
 
   loadLeaderboard(): void {
     this.gameApi.getLeaderboard().subscribe({

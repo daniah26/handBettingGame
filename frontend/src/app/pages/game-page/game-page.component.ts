@@ -122,7 +122,13 @@ export class GamePageComponent implements OnInit {
   }
 
   restartGame(): void {
-    this.gameApi.startGame().subscribe({
+    const playerName = prompt('Enter your name:')?.trim();
+
+    if (!playerName) {
+      return;
+    }
+    
+    this.gameApi.startGame(playerName).subscribe({
       next: (newGame) => {
         this.router.navigate(['/game', newGame._id]);
       },
